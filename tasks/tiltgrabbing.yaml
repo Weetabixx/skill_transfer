@@ -1,0 +1,44 @@
+name: TiltGrabbing
+
+required-object-info:
+  tool: true
+  target-object: true
+  task: grabbing_book
+
+# The following motion phases will be executed in a sequence
+motion-phases:
+  - name: Position Above
+    # Giskard file
+    file: tilting_position_above.yaml
+    # Stop conditions
+    stop:
+      # When measured gripper velocity drops below this threshold
+      measured-velocity-min-threshold: 0.002
+      # When desired (set by the controller) gripper velocity drops below this threshold
+      desired-velocity-min-threshold: 0.002
+      # Stop on contact
+      contact: false
+      # Ignore stop conditions until the distance 
+      # from the target configuration is less than this
+      activation-distance: 0.15
+#  - name: "Touch"
+#    file: "tilting_touch.yaml"
+#    stop:
+#      measured-velocity-min-threshold: 0.002
+#      desired-velocity-min-threshold: 0.002
+#      contact: false
+#      activation-distance: 0.15
+#  - name: "Tilt"
+#    file: "tilting_tilt.yaml"
+#    stop:
+#      measured-velocity-min-threshold: 0.002
+#      desired-velocity-min-threshold: 0.002
+#      contact: false
+#      activation-distance: 0.15
+#  - name: "Grab"
+#    file: "tilting_grab.yaml"
+#    stop:
+#      measured-velocity-min-threshold: 0.02
+#      desired-velocity-min-threshold: 0.02
+#      contact: false
+#      activation-distance: 0.15
