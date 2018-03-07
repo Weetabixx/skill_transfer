@@ -8,13 +8,13 @@ tool-mass: 0.05
 # Transformation from the end effector to the tool
 tool-grasp: 
   frame:
-    - quaternion: [0.0, 0., 0., 1.0000000000001] # x, y, z, w
+    - quaternion: [0.0, 0., 0., 1.00000000001] # x, y, z, w
     - vector3: [0.0, 0.0, 0.0] # x, y, z
     
 target-object-grasp:
   frame: # the position of the corner of the book
     - quaternion: [0.0, 0.0, 0.0, 1.0]
-    - vector3: [0.08415, 0, 0.3887] #[0.08415, 0.3887, 0]
+    - vector3: [0.23415, 0.661, 0.86594] #[0.08415, 0, 0.3887]
 
 
 
