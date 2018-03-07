@@ -88,12 +88,12 @@ Experiment launch file can be run for freely flying end effectors simulation (ar
 
 1. Launch the Gazebo world and keep it running
   ```
-  roslaunch skill_transfer simulation.launch world:=big_bowl_spatula_v
+  roslaunch skill_transfer simulation.launch world:=grabbing_book
   ```
 
 2. In a new terminal, launch the experiment
   ```
-  roslaunch skill_transfer experiment.launch task:=scraping robot:=free_ees setup:=big_bowl_spatula
+  roslaunch skill_transfer experiment.launch task:=tiltgrabbing robot:=free_ees setup:=book_on_shelf
   ```
 
 ### Running with Gazebo and iai_naive_kinematics PR2 simulator

@@ -1,0 +1,12 @@
+ply
+format ascii 1.0
+comment author Robin Graf
+element vertex 1502
+property float x
+property float y
+property float z
+property int segm
+element face 3000
+property list uchar int vertex_indices
+end_header
+0 0 0 0

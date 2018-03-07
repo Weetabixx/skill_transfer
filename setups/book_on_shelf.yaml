@@ -1,6 +1,6 @@
 # Object scans a.k.a. object knowledge base
 point-clouds:
-  tool: b_spatula.ply # no tool therefore no pointcloud
+  tool: nothing.ply # no tool therefore no pointcloud, but still need pointcloud
   target-object: book.ply
 
 tool-mass: 0.05
