@@ -6,7 +6,6 @@ scope:
   # definition of object frames 
   - target-object-frame:
       frame-mul:
-        - book-position-world
         - target-object-grasp # This has to be provided
 
   - tool-frame:

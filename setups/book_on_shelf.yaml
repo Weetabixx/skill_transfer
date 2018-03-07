@@ -16,9 +16,6 @@ target-object-grasp:
     - quaternion: [0.0, 0.0, 0.0, 1.0]
     - vector3: [0.08415, 0, 0.3887] #[0.08415, 0.3887, 0]
 
-book-position-world:
-  frame: # this should be done by the vision code
-    - quaternion: [0.0, 0.0, 0.0, 1.0]
-    - vector3: [0.149, 0.660, 0.477]
+
 
   
