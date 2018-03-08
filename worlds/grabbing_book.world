@@ -186,9 +186,9 @@
             <name>right_ee_2</name>
             <pose>1.150000 0.7000000 0.475000 0.000000 0.000000 1.57080</pose>
             
-            <plugin name="r2_force_controller" filename="libvelocity_controller_plugin.so">
+            <plugin name="r_2_force_controller" filename="libvelocity_controller_plugin.so">
               <linkName>link</linkName>
-              <topicName>set_r_gripper_twist</topicName>
+              <topicName>set_r_2_gripper_twist</topicName>
               <gains>
                 <linear>
                   <P>100.0</P>
@@ -203,9 +203,9 @@
               </gains>
             </plugin>
             
-            <plugin name="r2_tf_broadcaster" filename="libtf_broadcaster_plugin.so">
+            <plugin name="r_2_tf_broadcaster" filename="libtf_broadcaster_plugin.so">
               <linkName>link</linkName>
-              <frameName>r2_gripper_tool_frame</frameName>
+              <frameName>r_2_gripper_tool_frame</frameName>
             </plugin>
         </include>
 
