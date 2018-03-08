@@ -6,6 +6,7 @@ point-clouds:
 tool-mass: 0.05
 
 # Transformation from the end effector to the tool
+# need this as it is assumed left and right ee are gripping something
 tool-grasp: 
   frame:
     - quaternion: [0.0, 0., 0., 1.00000000001] # x, y, z, w
