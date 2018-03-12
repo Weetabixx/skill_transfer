@@ -346,8 +346,11 @@ private:
     tool_grasp_node["tool-grasp"] = setup_["tool-grasp"];
     YAML::Node target_object_grasp_node;
     target_object_grasp_node["target-object-grasp"] = setup_["target-object-grasp"];
+    YAML::Node target_object_grasp_2_node;
+    target_object_grasp_2_node["target-object-grasp-2"] = setup_["target-object-grasp-2"];
     new_scope.push_back(tool_grasp_node);
     new_scope.push_back(target_object_grasp_node);
+    new_scope.push_back(target_object_grasp_2_node);
 
     // Fill in object features
     const YAML::Node &all_features_node = setup_["object-info"];
@@ -441,6 +444,48 @@ private:
 
       transform_stamped.header.frame_id = "r_gripper_tool_frame";
       transform_stamped.child_frame_id = "target_object_frame";
+      transform_stamped.header.stamp = ros::Time::now();
+
+      transform_stamped.transform.translation.x = x;
+      transform_stamped.transform.translation.y = y;
+      transform_stamped.transform.translation.z = z;
+      transform_stamped.transform.rotation.x = qx;
+      transform_stamped.transform.rotation.y = qy;
+      transform_stamped.transform.rotation.z = qz;
+      transform_stamped.transform.rotation.w = qw;
+
+      tf_broadcaster_.sendTransform(transform_stamped);
+    }
+    {
+      const auto &tool_grasp_frame = setup_["target-object-grasp-2"]["frame"];
+      double qx, qy, qz, qw, x, y, z;
+
+      for (const auto &n : tool_grasp_frame)
+      {
+        if (n["quaternion"])
+        {
+          const auto &q = n["quaternion"];
+
+          qx = q[0].as<double>();
+          qy = q[1].as<double>();
+          qz = q[2].as<double>();
+          qw = q[3].as<double>();
+        }
+
+        if (n["vector3"])
+        {
+          const auto &v = n["vector3"];
+
+          x = v[0].as<double>();
+          y = v[1].as<double>();
+          z = v[2].as<double>();
+        }
+      }
+
+      geometry_msgs::TransformStamped transform_stamped;
+
+      transform_stamped.header.frame_id = "r_gripper_tool_frame";
+      transform_stamped.child_frame_id = "target-object-grasp-2";
       transform_stamped.header.stamp = ros::Time::now();
 
       transform_stamped.transform.translation.x = x;

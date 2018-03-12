@@ -15,7 +15,7 @@ scope:
 
   # definition of features
   - tool-point: 
-      transform-vector: [tool-frame, tool-heel]      
+      transform-vector: [tool-frame, {vector3: [0, 0, 0.025]}]      
   - target-object-point:
       vector-add:
         - transform-vector: [target-object-frame, edge-point]

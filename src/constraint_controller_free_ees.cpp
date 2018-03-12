@@ -94,14 +94,14 @@ public:
       
       const auto l_ee_twist_desired_msg = giskard_adapter_.getDesiredFrameTwistMsg(inputs, "left_ee");
       const auto r_ee_twist_desired_msg = giskard_adapter_.getDesiredFrameTwistMsg(inputs, "right_ee");
-      const auto r_ee_2_twist_desired_msg = giskard_adapter_.getDesiredFrameTwistMsg(inputs, "right_ee_2");
+      const auto r_ee_2_twist_desired_msg = giskard_adapter_.getDesiredFrameTwistMsg(inputs, "right_ee");
     
       pub_set_l_ee_.publish(l_ee_twist_desired_msg);
       pub_l_ee_.publish(left_ee_twist);
       pub_set_r_ee_.publish(r_ee_twist_desired_msg);
       pub_r_ee_.publish(right_ee_twist);
-      pub_set_r_ee_2_.publish(r_ee_twist_desired_msg);
-      pub_r_ee_2_.publish(right_ee_twist);
+      pub_set_r_ee_2_.publish(r_ee_2_twist_desired_msg);
+      pub_r_ee_2_.publish(right_ee_2_twist);
 
       feedback_.distance = giskard_adapter_.getDistance();
       as_.publishFeedback(feedback_);

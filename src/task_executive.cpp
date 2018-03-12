@@ -33,6 +33,10 @@ private:
   ros::NodeHandle node_handle_;
   ros::Subscriber ee_twist_subscriber_;
   ros::Subscriber set_ee_twist_subscriber_;
+  ros::Subscriber r_ee_twist_subscriber_;
+  ros::Subscriber set_r_ee_twist_subscriber_;
+  ros::Subscriber r_ee_2_twist_subscriber_;
+  ros::Subscriber set_r_ee_2_twist_subscriber_;
   ros::Subscriber tool_contact_subscriber_;
   ros::ServiceClient task_spec_service_client_;
   ros::ServiceClient motion_spec_service_client_;
@@ -55,6 +59,16 @@ public:
     ee_twist_subscriber_ = node_handle_.subscribe("/l_ee_twist", 1,
                                                   &TaskExecutive::onEeTwistMsg, this);
     set_ee_twist_subscriber_ = node_handle_.subscribe("/set_l_ee_twist", 1,
+                                                      &TaskExecutive::onSetEeTwistMsg, this);
+
+    r_ee_twist_subscriber_ = node_handle_.subscribe("/r_ee_twist", 1,
+                                                  &TaskExecutive::onEeTwistMsg, this);
+    set_r_ee_twist_subscriber_ = node_handle_.subscribe("/set_r_ee_twist", 1,
+                                                      &TaskExecutive::onSetEeTwistMsg, this);
+
+    r_ee_2_twist_subscriber_ = node_handle_.subscribe("/r_ee_2_twist", 1,
+                                                  &TaskExecutive::onEeTwistMsg, this);
+    set_r_ee_2_twist_subscriber_ = node_handle_.subscribe("/set_r_ee_2_twist", 1,
                                                       &TaskExecutive::onSetEeTwistMsg, this);
 
     tool_contact_subscriber_ = node_handle_.subscribe("/tool_contact_sensor_state", 1,
