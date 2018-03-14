@@ -78,10 +78,10 @@ public:
     if (as_.isActive())
     {
       // Prepare controller inputs
-      Eigen::VectorXd inputs(12);
+      Eigen::VectorXd inputs(18);
       inputs.segment(0, 6) = msgPoseToEigenVector(left_ee_pose);
       inputs.segment(6, 6) = msgPoseToEigenVector(right_ee_pose);
-      inputs.segment(6, 6) = msgPoseToEigenVector(right_ee_2_pose);
+      inputs.segment(12, 6) = msgPoseToEigenVector(right_ee_2_pose);
       
       // Start the controller if it's a new one
       if (!giskard_adapter_.controller_started_)
@@ -94,7 +94,7 @@ public:
       
       const auto l_ee_twist_desired_msg = giskard_adapter_.getDesiredFrameTwistMsg(inputs, "left_ee");
       const auto r_ee_twist_desired_msg = giskard_adapter_.getDesiredFrameTwistMsg(inputs, "right_ee");
-      const auto r_ee_2_twist_desired_msg = giskard_adapter_.getDesiredFrameTwistMsg(inputs, "right_ee");
+      const auto r_ee_2_twist_desired_msg = giskard_adapter_.getDesiredFrameTwistMsg(inputs, "right_ee_2");
     
       pub_set_l_ee_.publish(l_ee_twist_desired_msg);
       pub_l_ee_.publish(left_ee_twist);

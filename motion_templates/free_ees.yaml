@@ -24,6 +24,15 @@ scope:
         - frame: [{axis-angle: [unit-z, {input-var: 9}]}, zero-vec]
         - frame: [{axis-angle: [unit-y, {input-var: 10}]}, zero-vec]
         - frame: [{axis-angle: [unit-x, {input-var: 11}]}, zero-vec]
+
+  - right_ee_2:
+      frame-mul:
+        - frame: [identity-rot, {vector3: [{input-var: 12}, 0, 0]}]
+        - frame: [identity-rot, {vector3: [0, {input-var: 13}, 0]}]
+        - frame: [identity-rot, {vector3: [0, 0, {input-var: 14}]}]
+        - frame: [{axis-angle: [unit-z, {input-var: 15}]}, zero-vec]
+        - frame: [{axis-angle: [unit-y, {input-var: 16}]}, zero-vec]
+        - frame: [{axis-angle: [unit-x, {input-var: 17}]}, zero-vec]
       
   # control params
   - rot_p_gain: 3.0
@@ -37,6 +46,10 @@ scope:
   - r_trans_vel_max: 0
   - r_rot_vel_min: 0
   - r_rot_vel_max: 0
+  - r_2_trans_vel_min: 0
+  - r_2_trans_vel_max: 0
+  - r_2_rot_vel_min: 0
+  - r_2_rot_vel_max: 0
 
 controllable-constraints:
   # left arm joints
@@ -53,6 +66,14 @@ controllable-constraints:
   - controllable-constraint: [r_rot_vel_min, r_rot_vel_max, controllable-weight, 9, r_gripper_rot_x]
   - controllable-constraint: [r_rot_vel_min, r_rot_vel_max, controllable-weight, 10, r_gripper_rot_y]
   - controllable-constraint: [r_rot_vel_min, r_rot_vel_max, controllable-weight, 11, r_gripper_rot_z]
+
+  # second right arm joints
+  - controllable-constraint: [r_2_trans_vel_min, r_2_trans_vel_max, controllable-weight, 12, r_2_gripper_pos_x]
+  - controllable-constraint: [r_2_trans_vel_min, r_2_trans_vel_max, controllable-weight, 13, r_2_gripper_pos_y]
+  - controllable-constraint: [r_2_trans_vel_min, r_2_trans_vel_max, controllable-weight, 14, r_2_gripper_pos_z]
+  - controllable-constraint: [r_2_rot_vel_min, r_2_rot_vel_max, controllable-weight, 15, r_2_gripper_rot_x]
+  - controllable-constraint: [r_2_rot_vel_min, r_2_rot_vel_max, controllable-weight, 16, r_2_gripper_rot_y]
+  - controllable-constraint: [r_2_rot_vel_min, r_2_rot_vel_max, controllable-weight, 17, r_2_gripper_rot_z]
 
 hard-constraints: [] # no hard constraints used in this motion
 
