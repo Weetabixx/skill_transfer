@@ -348,9 +348,12 @@ private:
     target_object_grasp_node["target-object-grasp"] = setup_["target-object-grasp"];
     YAML::Node target_object_grasp_2_node;
     target_object_grasp_2_node["target-object-grasp-2"] = setup_["target-object-grasp-2"];
+    YAML::Node object_width;
+    object_width["object-width"] = setup_["object-width"];
     new_scope.push_back(tool_grasp_node);
     new_scope.push_back(target_object_grasp_node);
     new_scope.push_back(target_object_grasp_2_node);
+    new_scope.push_back(object_width);
 
     // Fill in object features
     const YAML::Node &all_features_node = setup_["object-info"];

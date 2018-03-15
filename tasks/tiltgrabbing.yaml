@@ -13,7 +13,7 @@ motion-phases:
     # Stop conditions
     stop:
       # When measured gripper velocity drops below this threshold
-      measured-velocity-min-threshold: 0.002
+      measured-velocity-min-threshold: 0.0002
       # When desired (set by the controller) gripper velocity drops below this threshold
       desired-velocity-min-threshold: 0.002
       # Stop on contact
@@ -21,15 +21,36 @@ motion-phases:
       # Ignore stop conditions until the distance 
       # from the target configuration is less than this
       activation-distance: 0.15
-#  - name: "Touch"
-#    file: "tilting_touch.yaml"
+  - name: Position infront one
+    file: tilting_position_front.yaml
+    stop:
+      measured-velocity-min-threshold: 0.002
+      desired-velocity-min-threshold: 0.002
+      contact: false
+      activation-distance: 0.15
+  - name: Position infront two
+    file: tilting_position_front_2.yaml
+    stop:
+      measured-velocity-min-threshold: 0.002
+      desired-velocity-min-threshold: 0.002
+      contact: false
+      activation-distance: 0.15
+  - name: Touch top
+    file: tilting_touch_top.yaml
+    stop:
+      measured-velocity-min-threshold: 0.002
+      desired-velocity-min-threshold: 0.002
+      contact: false
+      activation-distance: 0.15
+#  - name: Tilt
+#    file: tilting_tilt.yaml
 #    stop:
 #      measured-velocity-min-threshold: 0.002
 #      desired-velocity-min-threshold: 0.002
 #      contact: false
 #      activation-distance: 0.15
-#  - name: "Tilt"
-#    file: "tilting_tilt.yaml"
+#  - name: Grab
+#    file: tilting_grab.yaml
 #    stop:
 #      measured-velocity-min-threshold: 0.002
 #      desired-velocity-min-threshold: 0.002

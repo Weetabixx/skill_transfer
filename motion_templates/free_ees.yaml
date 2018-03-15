@@ -42,14 +42,14 @@ scope:
   - l_trans_vel_max: 0.3
   - l_rot_vel_min: -0.5
   - l_rot_vel_max: 0.5
-  - r_trans_vel_min: 0
-  - r_trans_vel_max: 0
-  - r_rot_vel_min: 0
-  - r_rot_vel_max: 0
-  - r_2_trans_vel_min: 0
-  - r_2_trans_vel_max: 0
-  - r_2_rot_vel_min: 0
-  - r_2_rot_vel_max: 0
+  - r_trans_vel_min: -0.3
+  - r_trans_vel_max: 0.3
+  - r_rot_vel_min: -0.5
+  - r_rot_vel_max: 0.5
+  - r_2_trans_vel_min: -0.3
+  - r_2_trans_vel_max: 0.3
+  - r_2_rot_vel_min: -0.5
+  - r_2_rot_vel_max: 0.5
 
 controllable-constraints:
   # left arm joints

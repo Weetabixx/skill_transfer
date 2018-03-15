@@ -17,6 +17,8 @@ target-object-grasp:
     - quaternion: [0.0, 0.0, 0.0, 1.0]
     - vector3: [0.23415, 0.661, 0.86594] #[0.08415, 0, 0.3887]
 
+object-width: 0.037
+
 target-object-grasp-2:
   frame:
     - quaternion: [0.0, 0.0, 0.0, 1.0]
