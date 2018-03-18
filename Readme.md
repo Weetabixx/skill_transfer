@@ -59,7 +59,7 @@ There are configuration files that describe different levels of the system: moti
   catkin init
   cd src
   wstool init
-  wstool merge https://raw.githubusercontent.com/lubiluk/iros2018/master/rosinstall/catkin.rosinstall
+  wstool merge https://raw.githubusercontent.com/Weetabixx/skill_transfer/master/rosinstall/catkin.rosinstall
   wstool merge https://raw.githubusercontent.com/SemRoCo/giskard_core/master/rosinstall/catkin.rosinstall
   wstool merge https://raw.githubusercontent.com/SemRoCo/giskard_pr2/master/rosinstall/catkin_indigo.rosinstall
   wstool update
