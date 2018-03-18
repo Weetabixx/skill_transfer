@@ -38,8 +38,8 @@ motion-phases:
   - name: Touch top
     file: tilting_touch_top.yaml
     stop:
-      measured-velocity-min-threshold: 0.001
-      desired-velocity-min-threshold: 0.001
+      measured-velocity-min-threshold: 0.01
+      desired-velocity-min-threshold: 0.01
       contact: true
       activation-distance: 0.15
   - name: Tilt
