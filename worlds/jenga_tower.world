@@ -25,36 +25,125 @@
         <include>
             <uri>model://ground_plane</uri>
         </include>
-        
-        <!-- Books -->
-        <include>
-            <uri>model://jenga_block</uri>
-            <name>book1</name>
-            <pose>0.150000 0.550000 0.475000 0.000000 0.000000 1.57080</pose>
-        </include>
 
+        <!-- level 0 -->
         <include>
-            <uri>model://jenga_block</uri>
-            <name>book2</name>
-            <pose>0.150000 0.587000 0.475000 0.000000 0.000000 1.57080</pose>
-        </include>
-
-        <include>
-            <uri>model://jenga_block</uri>
-            <name>book3</name>
-            <pose>0.150000 0.624000 0.475000 0.000000 0.000000 1.57080</pose>
-        </include>
-
-        <include>
-            <uri>model://jenga_block</uri>
+            <uri>model://jenga_block</uri> <!-- 2.5x7.5x1.5 -->
             <name>book_target</name>
-            <pose>0.112500 0.660474 0.007500 2.356332 1.570793 -2.356332</pose>
+            <pose>0.115000 0.660000 0.007500 -1.570796 1.570796 0.00</pose>
 
             <plugin name="target_tf_broadcaster" filename="libtf_broadcaster_plugin.so">
               <linkName>link</linkName>
               <frameName>book_object_frame</frameName>
             </plugin>
         </include>
+        <include>
+            <uri>model://jenga_block</uri>
+            <name>block2</name>
+            <pose>0.090000 0.660000 0.007500 -1.570796 1.570796 0.00</pose>
+        </include>
+        <include>
+            <uri>model://jenga_block</uri>
+            <name>block3</name>
+            <pose>0.065000 0.660000 0.007500 -1.570796 1.570796 0.00</pose>
+        </include>
+        <!-- level 1 -->
+        <include>
+            <uri>model://jenga_block</uri>
+            <name>block4</name>
+            <pose>0.090000 0.685000 0.022550 3.141593 1.570796 0.00</pose>
+        </include>
+        <include>
+            <uri>model://jenga_block</uri>
+            <name>block5</name>
+            <pose>0.090000 0.660000 0.022550 3.141593 1.570796 0.00</pose>
+        </include>
+        <include>
+            <uri>model://jenga_block</uri>
+            <name>block6</name>
+            <pose>0.090000 0.635000 0.022550 3.141593 1.570796 0.00</pose>
+        </include>
+        <!-- level 2 -->
+        <include>
+            <uri>model://jenga_block</uri> <!-- 2.5x7.5x1.5 -->
+            <name>block7</name>
+            <pose>0.115000 0.660000 0.037600 -1.570796 1.570796 0.00</pose>
+        </include>
+        <include>
+            <uri>model://jenga_block</uri>
+            <name>block8</name>
+            <pose>0.090000 0.660000 0.037600 -1.570796 1.570796 0.00</pose>
+        </include>
+        <include>
+            <uri>model://jenga_block</uri>
+            <name>block9</name>
+            <pose>0.065000 0.660000 0.037600 -1.570796 1.570796 0.00</pose>
+        </include>
+        <!-- level 3 -->
+        <include>
+            <uri>model://jenga_block</uri>
+            <name>block10</name>
+            <pose>0.090000 0.685000 0.052650 3.141593 1.570796 0.00</pose>
+        </include>
+        <include>
+            <uri>model://jenga_block</uri>
+            <name>block11</name>
+            <pose>0.090000 0.660000 0.052650 3.141593 1.570796 0.00</pose>
+        </include>
+        <include>
+            <uri>model://jenga_block</uri>
+            <name>block12</name>
+            <pose>0.090000 0.635000 0.052650 3.141593 1.570796 0.00</pose>
+        </include>
+        <!-- level 4 -->
+        <include>
+            <uri>model://jenga_block</uri> <!-- 2.5x7.5x1.5 -->
+            <name>block13</name>
+            <pose>0.115000 0.660000 0.067700 -1.570796 1.570796 0.00</pose>
+        </include>
+        <include>
+            <uri>model://jenga_block</uri>
+            <name>block14</name>
+            <pose>0.090000 0.660000 0.067700 -1.570796 1.570796 0.00</pose>
+        </include>
+        <include>
+            <uri>model://jenga_block</uri>
+            <name>block15</name>
+            <pose>0.065000 0.660000 0.067700 -1.570796 1.570796 0.00</pose>
+        </include>
+        <!-- level 5 -->
+        <include>
+            <uri>model://jenga_block</uri>
+            <name>block16</name>
+            <pose>0.090000 0.685000 0.082750 3.141593 1.570796 0.00</pose>
+        </include>
+        <include>
+            <uri>model://jenga_block</uri>
+            <name>block17</name>
+            <pose>0.090000 0.660000 0.082750 3.141593 1.570796 0.00</pose>
+        </include>
+        <include>
+            <uri>model://jenga_block</uri>
+            <name>block18</name>
+            <pose>0.090000 0.635000 0.082750 3.141593 1.570796 0.00</pose>
+        </include>
+        <!-- level 6 -->
+        <include>
+            <uri>model://jenga_block</uri> <!-- 2.5x7.5x1.5 -->
+            <name>block19</name>
+            <pose>0.115000 0.660000 0.097800 -1.570796 1.570796 0.00</pose>
+        </include>
+        <include>
+            <uri>model://jenga_block</uri>
+            <name>block20</name>
+            <pose>0.090000 0.660000 0.097800 -1.570796 1.570796 0.00</pose>
+        </include>
+        <include>
+            <uri>model://jenga_block</uri>
+            <name>block21</name>
+            <pose>0.065000 0.660000 0.097800 -1.570796 1.570796 0.00</pose>
+        </include>
+
 
         
 
