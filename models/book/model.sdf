@@ -10,12 +10,12 @@
         <mass>1</mass>
         <pose frame='link'>0.03 0 0.18 0 -0 0</pose>
         <inertia>
-          <ixx>1</ixx>
+          <ixx>.01495105</ixx><!--  1/12 * m * (h^2 + d^2)  -->
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>0.75</iyy>
+          <iyy>0.01270166</iyy>
           <iyz>0</iyz>
-          <izz>0.5</izz>
+          <izz>0.00247143</izz>
         </inertia>
       </inertial>
       <collision name='collision'>
