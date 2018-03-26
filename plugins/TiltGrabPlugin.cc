@@ -18,14 +18,17 @@ void TiltGrabPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
     const auto world = this->model->GetWorld();
     this->physics = world->GetPhysicsEngine();
     
-    const std::string childLinkName = _sdf->GetElement("childLinkName")->Get<std::string>();
+    const std::string childLinkName1 = _sdf->GetElement("childLinkName1")->Get<std::string>();
+    const std::string childLinkName2 = _sdf->GetElement("childLinkName2")->Get<std::string>();
+    const std::string childLinkName3 = _sdf->GetElement("childLinkName3")->Get<std::string>();
     const std::string parentLinkName = _sdf->GetElement("parentLinkName")->Get<std::string>();
-    this->forceThreshold = _sdf->GetElement("force")->Get<double>();
+    this->grabPhase = 0;
 
     this->parentLink = this->model->GetLink(parentLinkName);
-    this->childLink = boost::dynamic_pointer_cast<physics::Link>(world->GetEntity(childLinkName));
+    this->childLink1 = boost::dynamic_pointer_cast<physics::Link>(world->GetEntity(childLinkName1));
+    this->childLink2 = boost::dynamic_pointer_cast<physics::Link>(world->GetEntity(childLinkName2));
+    this->childLink3 = boost::dynamic_pointer_cast<physics::Link>(world->GetEntity(childLinkName3));
 
-    this->CreateJoint();
 }
 
 void TiltGrabPlugin::OnUpdate(const common::UpdateInfo &_info) {
@@ -34,12 +37,15 @@ void TiltGrabPlugin::OnUpdate(const common::UpdateInfo &_info) {
       return;
     }
 
-    auto wrench = this->joint->GetForceTorque(0u);
-    auto measuredForce = wrench.body1Force;
+    if (this->grabPhase == 0){
 
-    auto force = this->forceThreshold;
-
-    auto measuredForceLength = measuredForce.GetLength();
+    }
+    if (this->grabPhase == 1){
+    	
+    }
+    if (this->grabPhase == 3){
+    	
+    }
 
     if (measuredForceLength > force) {
         gzdbg << "Removed joint: " << " (" << joint->GetName() << "), force: " << measuredForceLength << "\n";
@@ -49,30 +55,68 @@ void TiltGrabPlugin::OnUpdate(const common::UpdateInfo &_info) {
 }
 
 void TiltGrabPlugin::Reset() {
-    if (this->joint == nullptr) {
-        this->CreateJoint();
+    if (this->joint1 != nullptr) {
+        this->BreakJoint();
+    }
+    if (this->joint2 != nullptr) {
+    	this->joint2->Detach();
+    	this->joint2 = nullptr;
+    	this->joint3->Detach();
+    	this->joint3 = nullptr;
+    
+    	// Enable gravity on the childLink
+    	this->parentLink->SetGravityMode(true);
+
+    	event::Events::DisconnectWorldUpdateBegin(this->updateConnection);
+    	this->updateConnection = nullptr;
     }
 }
 
-void TiltGrabPlugin::CreateJoint() {
-    this->joint = this->physics->CreateJoint("fixed", this->model);
+void TiltGrabPlugin::CreateFirstJoint() {
+    this->joint1 = this->physics->CreateJoint("fixed", this->model);
     // Bullet physics needs accurate joint position
     // ODE does't care
-    this->joint->Load(this->parentLink, this->childLink, this->parentLink->GetWorldPose() - this->childLink->GetWorldPose());
-    this->joint->Init();
-    this->joint->SetProvideFeedback(true);
-    this->joint->SetName("stick_joint_" + this->parentLink->GetScopedName() + "_" + this->childLink->GetScopedName());
+    this->joint1->Load(this->parentLink, this->childLink1, this->parentLink->GetWorldPose() - this->childLink1->GetWorldPose());
+    this->joint1->Init();
+    this->joint1->SetProvideFeedback(true);
+    this->joint1->SetName("tilt_joint1_" + this->parentLink->GetScopedName() + "_" + this->childLink1->GetScopedName());
     
     // Disable gravity on the butter link
     this->parentLink->SetGravityMode(false);
+    this->grabPhase = 1;
+
+    this->updateConnection = event::Events::ConnectWorldUpdateBegin(
+            boost::bind(&TiltGrabPlugin::OnUpdate, this, _1));
+}
+
+void TiltGrabPlugin::CreateSecondJoints() {
+    this->joint2 = this->physics->CreateJoint("fixed", this->model);
+    // Bullet physics needs accurate joint position
+    // ODE does't care
+    this->joint2->Load(this->parentLink, this->childLink2, this->parentLink->GetWorldPose() - this->childLink2->GetWorldPose());
+    this->joint2->Init();
+    this->joint2->SetProvideFeedback(true);
+    this->joint2->SetName("grab_joint2_" + this->parentLink->GetScopedName() + "_" + this->childLink2->GetScopedName());
+
+    this->joint3 = this->physics->CreateJoint("fixed", this->model);
+    // Bullet physics needs accurate joint position
+    // ODE does't care
+    this->joint3->Load(this->parentLink, this->childLink3, this->parentLink->GetWorldPose() - this->childLink3->GetWorldPose());
+    this->joint3->Init();
+    this->joint3->SetProvideFeedback(true);
+    this->joint3->SetName("grab_joint3_" + this->parentLink->GetScopedName() + "_" + this->childLink3->GetScopedName());
+    
+    // Disable gravity on the butter link
+    this->parentLink->SetGravityMode(false);
+    this->grabPhase = 2;
 
     this->updateConnection = event::Events::ConnectWorldUpdateBegin(
             boost::bind(&TiltGrabPlugin::OnUpdate, this, _1));
 }
 
 void TiltGrabPlugin::BreakJoint() {
-    this->joint->Detach();
-    this->joint = nullptr;
+    this->joint1->Detach();
+    this->joint1 = nullptr;
     
     // Enable gravity on the childLink
     this->parentLink->SetGravityMode(true);

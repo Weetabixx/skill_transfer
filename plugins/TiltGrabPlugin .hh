@@ -12,17 +12,22 @@ namespace gazebo {
         void Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) override;
         void OnUpdate(const common::UpdateInfo & _info);
         void Reset() override;
-        void CreateJoint();
+        void CreateFirstJoint();
+        void CreateSecondJoints();
         void BreakJoint();
 
     private:
         physics::PhysicsEnginePtr physics;
         physics::ModelPtr model;
-        physics::JointPtr joint;
-        physics::LinkPtr childLink;
+        physics::JointPtr joint1;
+        physics::JointPtr joint2;
+        physics::JointPtr joint3;
+        physics::LinkPtr childLink1;
+        physics::LinkPtr childLink2;
+        physics::LinkPtr childLink3;
         physics::LinkPtr parentLink;
         event::ConnectionPtr updateConnection;
-        double forceThreshold;
+        int grabPhase;
     };
 }
 
