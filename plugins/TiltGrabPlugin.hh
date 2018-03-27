@@ -4,6 +4,7 @@
 
 #include <gazebo/gazebo.hh>
 #include <gazebo/physics/Joint.hh>
+#include <gazebo/sensors/sensors.hh>
 
 namespace gazebo {
     class TiltGrabPlugin : public ModelPlugin {
@@ -28,6 +29,7 @@ namespace gazebo {
         physics::LinkPtr parentLink;
         event::ConnectionPtr updateConnection;
         int grabPhase;
+        sensors::ContactSensorPtr parentSensor;
     };
 }
 

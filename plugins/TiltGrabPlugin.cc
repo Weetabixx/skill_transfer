@@ -1,6 +1,7 @@
 #include "TiltGrabPlugin.hh"
 
 #include <gazebo/physics/physics.hh>
+#include <gazebo/sensors/sensors.hh>
 #include <string>
 
 using namespace gazebo;
@@ -9,7 +10,7 @@ using namespace gazebo;
 GZ_REGISTER_MODEL_PLUGIN(TiltGrabPlugin);
 
 
-TiltGrabPlugin::TiltGrabPlugin(): ModelPlugin(), joint(nullptr) {
+TiltGrabPlugin::TiltGrabPlugin(): ModelPlugin(), joint1(nullptr) {
 
 }
 
@@ -17,17 +18,25 @@ void TiltGrabPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
     this->model = _parent;
     const auto world = this->model->GetWorld();
     this->physics = world->GetPhysicsEngine();
+    sensors::SensorManager *mgr = gazebo::sensors::SensorManager::Instance();
     
     const std::string childLinkName1 = _sdf->GetElement("childLinkName1")->Get<std::string>();
     const std::string childLinkName2 = _sdf->GetElement("childLinkName2")->Get<std::string>();
     const std::string childLinkName3 = _sdf->GetElement("childLinkName3")->Get<std::string>();
     const std::string parentLinkName = _sdf->GetElement("parentLinkName")->Get<std::string>();
+    const std::string SensorName = _sdf->GetElement("sensorName")->Get<std::string>();
+    std::cout << SensorName;
     this->grabPhase = 0;
 
     this->parentLink = this->model->GetLink(parentLinkName);
     this->childLink1 = boost::dynamic_pointer_cast<physics::Link>(world->GetEntity(childLinkName1));
     this->childLink2 = boost::dynamic_pointer_cast<physics::Link>(world->GetEntity(childLinkName2));
     this->childLink3 = boost::dynamic_pointer_cast<physics::Link>(world->GetEntity(childLinkName3));
+    this->parentSensor = std::dynamic_pointer_cast<sensors::ContactSensor>(mgr->GetSensor(SensorName));
+
+
+    //this->updateConnection = this->parentSensor->ConnectUpdated(std::bind(&TiltGrabPlugin::OnUpdate, this));
+    this->parentSensor->SetActive(true);
 
 }
 
@@ -36,21 +45,29 @@ void TiltGrabPlugin::OnUpdate(const common::UpdateInfo &_info) {
       // Let the stage settle down and position objects
       return;
     }
+    msgs::Contacts contacts;
+    contacts = this->parentSensor->Contacts();
+    for (unsigned int i = 0; i < contacts.contact_size(); ++i)
+    {
+    	std::cout << "Collision between[" << contacts.contact(i).collision1()
+    			  << "] and [" << contacts.contact(i).collision2() << "]\n";
+    }
 
+    bool left_finger_touching = false;
+    bool right_fingers_touching = false;
     if (this->grabPhase == 0){
-
+    	if (left_finger_touching){
+    		this->CreateFirstJoint();
+    		this->grabPhase = 1;
+    	}
     }
+
     if (this->grabPhase == 1){
-    	
-    }
-    if (this->grabPhase == 3){
-    	
-    }
-
-    if (measuredForceLength > force) {
-        gzdbg << "Removed joint: " << " (" << joint->GetName() << "), force: " << measuredForceLength << "\n";
-        
-        this->BreakJoint();
+    	if (right_fingers_touching){
+    		this->BreakJoint();
+    		this->CreateSecondJoints();
+    		this->grabPhase = 2;
+    	}
     }
 }
 

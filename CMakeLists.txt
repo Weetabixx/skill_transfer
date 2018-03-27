@@ -148,6 +148,10 @@ target_link_libraries(GripPlugin ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
 add_library(StickPlugin plugins/StickPlugin.cc)
 target_link_libraries(StickPlugin ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
 
+## book_grasp plugin
+add_library(TiltGrabPlugin plugins/TiltGrabPlugin.cc)
+target_link_libraries(TiltGrabPlugin ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
+
 ## Grip plugin
 add_library(GrainsFactoryPlugin plugins/GrainsFactoryPlugin.cc)
 target_link_libraries(GrainsFactoryPlugin ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
