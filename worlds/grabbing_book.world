@@ -64,15 +64,28 @@
               <linkName>link</linkName>
               <frameName>book_object_frame</frameName>
             </plugin>
-            <sensor name='book_contact' type='contact'>
-            </sensor>
             <plugin name="grasp" filename="libTiltGrabPlugin.so">
-              <parentLinkName>link</parentLinkName>
-              <childLinkName1>left_ee::link</childLinkName1>
-              <childLinkName2>right_ee::link</childLinkName2>
-              <childLinkName3>right_ee_2::link</childLinkName3>
-              <sensorName>book_contact</sensorName>
-            </plugin>
+                <parentLinkName>link</parentLinkName>
+                <childLinkName1>left_ee::link</childLinkName1>
+                <childLinkName2>right_ee::link</childLinkName2>
+                <childLinkName3>right_ee_2::link</childLinkName3>
+                <sensorName>book_contact</sensorName>
+              </plugin>
+            <sensor name='book_contact' type='contact'>
+              <plugin name="grasp" filename="libOtherGraspPlugin.so">
+                <parentLinkName>link</parentLinkName>
+                <childLinkName1>left_ee::link</childLinkName1>
+                <childLinkName2>right_ee::link</childLinkName2>
+                <childLinkName3>right_ee_2::link</childLinkName3>
+                <sensorName>book_contact</sensorName>
+              </plugin>
+              <contact>
+                <collision>collision</collision>
+              </contact>
+              <visualize>true</visualize>
+              <always_on>true</always_on>
+            </sensor>
+            
         </include>
 
         <include>

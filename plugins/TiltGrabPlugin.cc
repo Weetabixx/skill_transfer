@@ -3,6 +3,7 @@
 #include <gazebo/physics/physics.hh>
 #include <gazebo/sensors/sensors.hh>
 #include <string>
+#include <ros/ros.h>
 
 using namespace gazebo;
 
@@ -15,9 +16,17 @@ TiltGrabPlugin::TiltGrabPlugin(): ModelPlugin(), joint1(nullptr) {
 }
 
 void TiltGrabPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
+    ROS_INFO("Hello World!");
     this->model = _parent;
     const auto world = this->model->GetWorld();
     this->physics = world->GetPhysicsEngine();
+    this->cMgr = this->physics->GetContactManager();
+    if (!this->cMgr)
+    {
+        std::cout << "oops \n";
+        gzerr << "nullptr. \n";
+        return;
+    }
     sensors::SensorManager *mgr = gazebo::sensors::SensorManager::Instance();
     
     const std::string childLinkName1 = _sdf->GetElement("childLinkName1")->Get<std::string>();
@@ -25,18 +34,39 @@ void TiltGrabPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
     const std::string childLinkName3 = _sdf->GetElement("childLinkName3")->Get<std::string>();
     const std::string parentLinkName = _sdf->GetElement("parentLinkName")->Get<std::string>();
     const std::string SensorName = _sdf->GetElement("sensorName")->Get<std::string>();
-    std::cout << SensorName;
+    //int y = model->GetSensorCount();
+    //std::cout << y << "\n";
+    //std::cout << SensorName << "\n";
+    sensors::Sensor_V all = mgr->GetSensors();
+    //std::cout << "used mgr \n";
+    //std::string name;
+    std::cout << all.size() << "\n";
+    //for(int i = 0; i < all.size(); i++)
+    //{
+    //    name = all[i]->Name();
+    //    std::cout << name << "\n";
+    //}
     this->grabPhase = 0;
 
     this->parentLink = this->model->GetLink(parentLinkName);
     this->childLink1 = boost::dynamic_pointer_cast<physics::Link>(world->GetEntity(childLinkName1));
     this->childLink2 = boost::dynamic_pointer_cast<physics::Link>(world->GetEntity(childLinkName2));
     this->childLink3 = boost::dynamic_pointer_cast<physics::Link>(world->GetEntity(childLinkName3));
-    this->parentSensor = std::dynamic_pointer_cast<sensors::ContactSensor>(mgr->GetSensor(SensorName));
+    //sensors::SensorPtr SensorPointer = mgr->GetSensor(SensorName);
+    //if (!SensorPointer)
+    //    {
+    //        std::cout << "oops \n";
+    //        gzerr << "nullptr. \n";
+    //        return;
+    //    }
+    //this->parentSensor = std::dynamic_pointer_cast<sensors::ContactSensor>(SensorPointer);
 
 
     //this->updateConnection = this->parentSensor->ConnectUpdated(std::bind(&TiltGrabPlugin::OnUpdate, this));
-    this->parentSensor->SetActive(true);
+    //this->parentSensor->SetActive(true);
+    this->curcontact = true;
+    this->updateConnection = event::Events::ConnectWorldUpdateBegin(
+            boost::bind(&TiltGrabPlugin::OnUpdate, this, _1));
 
 }
 
@@ -45,12 +75,25 @@ void TiltGrabPlugin::OnUpdate(const common::UpdateInfo &_info) {
       // Let the stage settle down and position objects
       return;
     }
-    msgs::Contacts contacts;
-    contacts = this->parentSensor->Contacts();
-    for (unsigned int i = 0; i < contacts.contact_size(); ++i)
+    std::vector<physics::Contact*> contacts;
+    //physics::Contact contacts;
+    //msgs::Contacts contacts;
+    contacts = this->cMgr->GetContacts();
+    int number = this->cMgr->GetContactCount();
+    for (unsigned int i = 0; i < number; ++i)
     {
-    	std::cout << "Collision between[" << contacts.contact(i).collision1()
-    			  << "] and [" << contacts.contact(i).collision2() << "]\n";
+        physics::Collision *col1 = contacts[i]->collision1;
+        physics::Collision *col2 = contacts[i]->collision2;
+        std::string name1 = col1->GetName();
+        std::string name2 = col2->GetName();
+    	std::cout << "Collision between[" << name1 << "] and [" << name2 << "]\n";
+        this->curcontact = true;
+    }
+    if (number == 0 and curcontact)
+    {
+        std::cout << "no Collisions \n";
+        //std::cout << contacts << "\n";
+        this->curcontact = false;
     }
 
     bool left_finger_touching = false;

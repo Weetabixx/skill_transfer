@@ -30,6 +30,8 @@ namespace gazebo {
         event::ConnectionPtr updateConnection;
         int grabPhase;
         sensors::ContactSensorPtr parentSensor;
+        physics::ContactManager *cMgr;
+        bool curcontact;
     };
 }
 
