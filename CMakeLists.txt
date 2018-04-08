@@ -153,8 +153,8 @@ add_library(TiltGrabPlugin plugins/TiltGrabPlugin.cc)
 target_link_libraries(TiltGrabPlugin ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
 
 ## other_book_grasp plugin
-add_library(OtherGraspPlugins plugins/OtherGraspPlugin.cc)
-target_link_libraries(OtherGraspPlugins ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
+add_library(OtherGraspPlugin plugins/OtherGraspPlugin.cc)
+target_link_libraries(OtherGraspPlugin ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
 
 ## Grip plugin
 add_library(GrainsFactoryPlugin plugins/GrainsFactoryPlugin.cc)

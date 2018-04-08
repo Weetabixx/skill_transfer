@@ -52,6 +52,11 @@ void TiltGrabPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
     this->childLink1 = boost::dynamic_pointer_cast<physics::Link>(world->GetEntity(childLinkName1));
     this->childLink2 = boost::dynamic_pointer_cast<physics::Link>(world->GetEntity(childLinkName2));
     this->childLink3 = boost::dynamic_pointer_cast<physics::Link>(world->GetEntity(childLinkName3));
+
+
+    this->parentSensor = mgr->CreateSensor()
+    this->parentLink->AddChild(this->parentSensor);
+    this->parentSensor = this->
     //sensors::SensorPtr SensorPointer = mgr->GetSensor(SensorName);
     //if (!SensorPointer)
     //    {
