@@ -1,6 +1,7 @@
 <?xml version='1.0'?>
 <sdf version="1.6">
-    <world name="big_bowl_spatula_v">
+
+    <world name="grabbing_book_v">
 
         <!-- <physics type="ode">
             <max_step_size>0.001</max_step_size>
@@ -99,7 +100,7 @@
                   </box>
                 </geometry>
             </visual>
-            <sensor name="main_bumper" type="contact">
+            <!--<sensor name="main_bumper" type="contact">
               <selfCollide>true</selfCollide>
               <alwaysOn>true</alwaysOn>
               <updateRate>15.0</updateRate>
@@ -110,28 +111,93 @@
                 <bumperTopicName>bumper_vals</bumperTopicName>
                 <frameName>book_target</frameName>
               </plugin>
-            </sensor>
+            </sensor>-->
         </link>
         
     </model>
-    
-        <include>
+    <model name='book_target'>
+      <static>false</static>
+      <pose>0.118875 0.661000 0.485809 1e-06 0.000000 1.57080</pose>
+
+      <link name='book_link'>
+        <pose frame='link'>-0.031125 0 0.010809 1e-06 -0 0</pose>
+        <inertial>
+          <mass>1</mass>
+          <pose frame='link'>0.03 0 0.18 0 -0 0</pose>
+          <inertia>
+            <ixx>.01495105</ixx><!--  1/12 * m * (h^2 + d^2)  -->
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.01270166</iyy>
+            <iyz>0</iyz>
+            <izz>0.00247143</izz>
+          </inertia>
+        </inertial>
+        <collision name='book_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://book/book.stl</uri>
+            </mesh>
+          </geometry>
+          <pose frame=''>0.26 0 -0.32 0 -0 0</pose>
+          <surface>
+            <friction>
+              <ode>
+                <mu>999</mu>
+                <mu2>999</mu2>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='book_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://book/book.stl</uri>
+            </mesh>
+          </geometry>
+          <pose frame=''>0.26 0 -0.32 0 -0 0</pose>
+        </visual>
+        <sensor name="main_bumper" type="contact">
+          <selfCollide>true</selfCollide>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>15.0</updateRate>
+          <contact>
+            <collision>book_collision</collision>
+          </contact>
+          <plugin name="gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">   
+            <bumperTopicName>bumper_vals</bumperTopicName>
+            <frameName>book_target</frameName>
+          </plugin>
+        </sensor>
+      </link>
+      <!--<plugin name="target_tf_broadcaster" filename="libtf_broadcaster_plugin.so">
+        <linkName>link</linkName>
+        <frameName>book_object_frame</frameName>
+      </plugin>-->
+      <plugin name="grasp" filename="libTiltGrabPlugin.so">
+        <parentLinkName>link</parentLinkName>
+        <childLinkName1>left_ee::link</childLinkName1>
+        <childLinkName2>right_ee::link</childLinkName2>
+        <childLinkName3>right_ee_2::link</childLinkName3>
+        <sensorName>book_contact</sensorName>
+      </plugin>
+    </model>
+        <!--<include>
             <uri>model://book</uri>
             <name>book_target</name>
             <pose>0.150000 0.661000 0.475000 0.000000 0.000000 1.57080</pose>
-            <!--<sensor name="main_bumper" type="contact">
+            <sensor name="main_bumper" type="contact">
               <selfCollide>true</selfCollide>
               <alwaysOn>true</alwaysOn>
               <updateRate>15.0</updateRate>
-              <material>Gazebo/Red</material>
               <contact>
-                <collision>collision</collision>
+                <collision>book_target::book_link::book_collision</collision>
               </contact>
               <plugin name="gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">   
                 <bumperTopicName>bumper_vals</bumperTopicName>
                 <frameName>book_target</frameName>
               </plugin>
-            </sensor> -->
+            </sensor>
             <plugin name="target_tf_broadcaster" filename="libtf_broadcaster_plugin.so">
               <linkName>link</linkName>
               <frameName>book_object_frame</frameName>
@@ -144,7 +210,7 @@
               <sensorName>book_contact</sensorName>
             </plugin>
             
-        </include>
+        </include> -->
 
         <include>
             <uri>model://book</uri>
