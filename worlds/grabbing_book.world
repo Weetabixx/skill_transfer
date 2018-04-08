@@ -164,16 +164,16 @@
           <contact>
             <collision>book_collision</collision>
           </contact>
-          <plugin name="gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">   
+          <!--<plugin name="gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">   
             <bumperTopicName>bumper_vals</bumperTopicName>
             <frameName>book_target</frameName>
-          </plugin>
+          </plugin> -->
         </sensor>
       </link>
-      <!--<plugin name="target_tf_broadcaster" filename="libtf_broadcaster_plugin.so">
-        <linkName>link</linkName>
+      <plugin name="target_tf_broadcaster" filename="libtf_broadcaster_plugin.so">
+        <linkName>book_link</linkName>
         <frameName>book_object_frame</frameName>
-      </plugin>-->
+      </plugin>
       <plugin name="grasp" filename="libTiltGrabPlugin.so">
         <parentLinkName>link</parentLinkName>
         <childLinkName1>left_ee::link</childLinkName1>
