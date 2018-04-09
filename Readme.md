@@ -47,9 +47,10 @@ There are configuration files that describe different levels of the system: moti
 
 ### Supported tasks
 
-1. Scraping butter off a tool into a container
-2. Scooping a substance (e.g. grains) from a container
-3. Cutting an object on a flat object/surface
+1. Scraping butter off a tool into a container - not supported in with this version
+2. Scooping a substance (e.g. grains) from a container - not supported in with this version
+3. Cutting an object on a flat object/surface - not supported in with this version
+4. Tilting and grabbing an object, eg a book from a bookshelf
 
 ## Installation
 * Install ROS, then:
