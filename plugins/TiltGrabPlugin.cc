@@ -27,7 +27,7 @@ void TiltGrabPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
         gzerr << "nullptr. \n";
         return;
     }
-    sensors::SensorManager *mgr = gazebo::sensors::SensorManager::Instance();
+    //sensors::SensorManager *mgr = gazebo::sensors::SensorManager::Instance();
     
     const std::string childLinkName1 = _sdf->GetElement("childLinkName1")->Get<std::string>();
     const std::string childLinkName2 = _sdf->GetElement("childLinkName2")->Get<std::string>();
@@ -37,10 +37,10 @@ void TiltGrabPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
     //int y = model->GetSensorCount();
     //std::cout << y << "\n";
     //std::cout << SensorName << "\n";
-    sensors::Sensor_V all = mgr->GetSensors();
+    //sensors::Sensor_V all = mgr->GetSensors();
     //std::cout << "used mgr \n";
     //std::string name;
-    std::cout << all.size() << "\n";
+    //std::cout << all.size() << "\n";
     //for(int i = 0; i < all.size(); i++)
     //{
     //    name = all[i]->Name();
@@ -53,10 +53,12 @@ void TiltGrabPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
     this->childLink2 = boost::dynamic_pointer_cast<physics::Link>(world->GetEntity(childLinkName2));
     this->childLink3 = boost::dynamic_pointer_cast<physics::Link>(world->GetEntity(childLinkName3));
 
+    
+    this->left_finger_touching = false;
+    this->right_fingers_touching = false;
 
-    this->parentSensor = mgr->CreateSensor()
-    this->parentLink->AddChild(this->parentSensor);
-    this->parentSensor = this->
+
+
     //sensors::SensorPtr SensorPointer = mgr->GetSensor(SensorName);
     //if (!SensorPointer)
     //    {
@@ -89,34 +91,54 @@ void TiltGrabPlugin::OnUpdate(const common::UpdateInfo &_info) {
     {
         physics::Collision *col1 = contacts[i]->collision1;
         physics::Collision *col2 = contacts[i]->collision2;
-        std::string name1 = col1->GetName();
-        std::string name2 = col2->GetName();
-    	std::cout << "Collision between[" << name1 << "] and [" << name2 << "]\n";
+        physics::ModelPtr mod1 = col1->GetModel();
+        physics::ModelPtr mod2 = col2->GetModel();
+        std::string name1 = mod1->GetName();
+        std::string name2 = mod2->GetName();
+    	//std::cout << "Collision between[" << name1 << "] and [" << name2 << "]\n";
         this->curcontact = true;
+        if (name2 == "left_ee")
+        {
+            this->left_finger_touching = true;
+            std::cout << "Collision between[" << name1 << "] and [" << name2 << "]\n";
+        }
+        if (name2 == "right_ee")
+        {
+            this->right_fingers_touching = true;
+            std::cout << "Collision between[" << name1 << "] and [" << name2 << "]\n";
+        }
+        if (name2 == "right_ee_2")
+        {
+            this->right_fingers_touching = true;
+            std::cout << "Collision between[" << name1 << "] and [" << name2 << "]\n";
+        }
+
     }
     if (number == 0 and curcontact)
     {
-        std::cout << "no Collisions \n";
+        //std::cout << "no Collisions \n";
         //std::cout << contacts << "\n";
         this->curcontact = false;
     }
 
-    bool left_finger_touching = false;
-    bool right_fingers_touching = false;
     if (this->grabPhase == 0){
-    	if (left_finger_touching){
+    	if (this->left_finger_touching){
     		this->CreateFirstJoint();
     		this->grabPhase = 1;
+            std::cout << "made first joint \n";
     	}
     }
 
     if (this->grabPhase == 1){
-    	if (right_fingers_touching){
+    	if (this->right_fingers_touching){
     		this->BreakJoint();
     		this->CreateSecondJoints();
     		this->grabPhase = 2;
+            std::cout << "made second joints \n";
     	}
     }
+    this->left_finger_touching = false;
+    this->right_fingers_touching = false;
 }
 
 void TiltGrabPlugin::Reset() {

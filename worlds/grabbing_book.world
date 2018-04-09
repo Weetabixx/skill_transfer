@@ -175,7 +175,7 @@
         <frameName>book_object_frame</frameName>
       </plugin>
       <plugin name="grasp" filename="libTiltGrabPlugin.so">
-        <parentLinkName>link</parentLinkName>
+        <parentLinkName>book_link</parentLinkName>
         <childLinkName1>left_ee::link</childLinkName1>
         <childLinkName2>right_ee::link</childLinkName2>
         <childLinkName3>right_ee_2::link</childLinkName3>

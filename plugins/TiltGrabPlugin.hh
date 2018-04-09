@@ -32,6 +32,8 @@ namespace gazebo {
         sensors::ContactSensorPtr parentSensor;
         physics::ContactManager *cMgr;
         bool curcontact;
+        bool left_finger_touching;
+        bool right_fingers_touching;
     };
 }
 
