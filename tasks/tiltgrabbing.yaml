@@ -47,7 +47,7 @@ motion-phases:
     stop:
       measured-velocity-min-threshold: 0.002
       desired-velocity-min-threshold: 0.002
-      contact: true
+      contact: false
       activation-distance: 0.15
   - name: Grab
     file: tilting_grab.yaml
@@ -55,7 +55,7 @@ motion-phases:
       measured-velocity-min-threshold: 0.002
       desired-velocity-min-threshold: 0.002
       contact: false
-      activation-distance: 0.05
+      activation-distance: 0.15
   - name: Lift finger
     file: tilting_position_above.yaml
     stop:

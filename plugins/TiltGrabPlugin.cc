@@ -97,17 +97,17 @@ void TiltGrabPlugin::OnUpdate(const common::UpdateInfo &_info) {
         std::string name2 = mod2->GetName();
     	//std::cout << "Collision between[" << name1 << "] and [" << name2 << "]\n";
         this->curcontact = true;
-        if (name2 == "left_ee")
+        if (name1 == "left_ee" || name2 == "left_ee")
         {
             this->left_finger_touching = true;
             std::cout << "Collision between[" << name1 << "] and [" << name2 << "]\n";
         }
-        if (name2 == "right_ee")
+        if (name1 == "right_ee" || name2 == "right_ee")
         {
             this->right_fingers_touching = true;
             std::cout << "Collision between[" << name1 << "] and [" << name2 << "]\n";
         }
-        if (name2 == "right_ee_2")
+        if (name1 == "right_ee_2" || name2 == "right_ee_2")
         {
             this->right_fingers_touching = true;
             std::cout << "Collision between[" << name1 << "] and [" << name2 << "]\n";
