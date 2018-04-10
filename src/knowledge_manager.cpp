@@ -348,12 +348,17 @@ private:
     target_object_grasp_node["target-object-grasp"] = setup_["target-object-grasp"];
     YAML::Node target_object_grasp_2_node;
     target_object_grasp_2_node["target-object-grasp-2"] = setup_["target-object-grasp-2"];
-    YAML::Node object_width;
-    object_width["object-width"] = setup_["object-width"];
+    YAML::Node object_width_node;
+    YAML::Node object_width_2_node;
+    double width;
+    width = setup_["object-width"].as<double>();
+    object_width_node["object-width"] = (width / 2) + 0.04;
+    object_width_2_node["object-width-2"] = -((width / 2) + 0.04);
     new_scope.push_back(tool_grasp_node);
     new_scope.push_back(target_object_grasp_node);
     new_scope.push_back(target_object_grasp_2_node);
-    new_scope.push_back(object_width);
+    new_scope.push_back(object_width_node);
+    new_scope.push_back(object_width_2_node);
 
     // Fill in object features
     const YAML::Node &all_features_node = setup_["object-info"];
