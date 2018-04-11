@@ -52,10 +52,17 @@ void TiltGrabPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
     this->childLink1 = boost::dynamic_pointer_cast<physics::Link>(world->GetEntity(childLinkName1));
     this->childLink2 = boost::dynamic_pointer_cast<physics::Link>(world->GetEntity(childLinkName2));
     this->childLink3 = boost::dynamic_pointer_cast<physics::Link>(world->GetEntity(childLinkName3));
+    this->book_model = this->parentLink->GetModel();
+
 
     
     this->left_finger_touching = false;
     this->right_fingers_touching = false;
+
+    const gazebo::math::Pose &modelstart = this->book_model->GetWorldPose();
+    std::cout << modelstart.pos;
+    this->goalZ = modelstart.pos.z;
+    this->goalZ += 0.05;
 
 
 
@@ -100,17 +107,17 @@ void TiltGrabPlugin::OnUpdate(const common::UpdateInfo &_info) {
         if (name1 == "left_ee" || name2 == "left_ee")
         {
             this->left_finger_touching = true;
-            std::cout << "Collision between[" << name1 << "] and [" << name2 << "]\n";
+            //std::cout << "Collision between[" << name1 << "] and [" << name2 << "]\n";
         }
         if (name1 == "right_ee" || name2 == "right_ee")
         {
             this->right_fingers_touching = true;
-            std::cout << "Collision between[" << name1 << "] and [" << name2 << "]\n";
+            //std::cout << "Collision between[" << name1 << "] and [" << name2 << "]\n";
         }
         if (name1 == "right_ee_2" || name2 == "right_ee_2")
         {
             this->right_fingers_touching = true;
-            std::cout << "Collision between[" << name1 << "] and [" << name2 << "]\n";
+            //std::cout << "Collision between[" << name1 << "] and [" << name2 << "]\n";
         }
 
     }
@@ -139,6 +146,15 @@ void TiltGrabPlugin::OnUpdate(const common::UpdateInfo &_info) {
     }
     this->left_finger_touching = false;
     this->right_fingers_touching = false;
+    if (this->grabPhase == 2){
+        const gazebo::math::Pose &modelend = this->book_model->GetWorldPose();
+        if (modelend.pos.z > this->goalZ){
+            ROS_INFO("Experiment Success");
+            //ROS_INFO(modelend.pos.z);
+            this->grabPhase = 3;
+        }
+        
+    }
 }
 
 void TiltGrabPlugin::Reset() {

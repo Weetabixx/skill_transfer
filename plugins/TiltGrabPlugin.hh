@@ -20,6 +20,7 @@ namespace gazebo {
     private:
         physics::PhysicsEnginePtr physics;
         physics::ModelPtr model;
+        physics::ModelPtr book_model;
         physics::JointPtr joint1;
         physics::JointPtr joint2;
         physics::JointPtr joint3;
@@ -34,6 +35,7 @@ namespace gazebo {
         bool curcontact;
         bool left_finger_touching;
         bool right_fingers_touching;
+        double goalZ;
     };
 }
 
