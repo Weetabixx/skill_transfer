@@ -1,0 +1,12 @@
+grabbing_book 10
+first - 10
+second - 6
+Success - 10
+freezer_box 10
+first - 10
+second - 9
+Success - 0
+freezer_box2 10
+first - 10
+second - 10
+Success - 0

@@ -1,0 +1,217 @@
+<?xml version='1.0'?>
+<sdf version="1.6">
+
+    <world name="grabbing_book_v">
+
+        <!-- <physics type="ode">
+            <max_step_size>0.001</max_step_size>
+            <real_time_factor>1</real_time_factor>
+            <real_time_update_rate>1000</real_time_update_rate>
+            <bullet>
+                <solver>
+                    <iters>70</iters>
+                </solver>
+            </bullet>
+            <ode>
+                <solver>
+                    <iters>70</iters>
+                </solver>
+            </ode>
+        </physics> -->
+
+        <include>
+            <uri>model://sun</uri>
+        </include>
+
+        <include>
+            <uri>model://ground_plane</uri>
+        </include>
+<!--
+        <include>
+            <uri>model://finger</uri>
+            <pose>0.140489 0.527566 0.997957 1.571605 -0.058101 -2.939758</pose>
+        </include> -->
+        
+        <include>
+            <uri>model://bookshelf_</uri>
+            <pose>0.000000 0.000000 0.000000 0.000000 0.0000000 0.000001</pose>
+        </include>
+        
+        <!-- Books -->
+        
+
+        <!--<include>
+            <uri>model://book</uri>
+            <name>book3</name>
+            <pose>0.150000 0.624000 0.475000 0.000000 0.000000 1.57080</pose>
+        </include> -->
+
+
+        <model name='book_target'>
+          <static>false</static>
+          <pose>0.150000 0.861000 0.585000 0.000000 0.000000 1.57080</pose>
+
+          <link name='book_link'>
+            <pose frame='link'>0 0 0 0 0 0</pose>
+            <inertial>
+              <mass>0.1</mass>
+              <pose frame='link'>0 0 0 0 0 0</pose>
+              <inertia>
+                <ixx>0.000666667</ixx><!--  1/12 * m * (h^2 + d^2)  -->
+                <ixy>0</ixy>
+                <ixz>0</ixz>
+                <iyy>0.000666667</iyy>
+                <iyz>0</iyz>
+                <izz>0.000666667</izz>
+              </inertia>
+            </inertial>
+            <collision name='book_collision'>
+              <geometry>
+                <box>
+                  <size>0.2 0.2 0.2</size>
+                </box>
+              </geometry>
+              <pose frame=''>0 0 0 0 0 0</pose>
+              <surface>
+                <friction>
+                  <ode>
+                    <mu>0.2</mu>
+                    <mu2>0.2</mu2>
+                  </ode>
+                </friction>
+              </surface>
+            </collision>
+            <visual name='book_visual'>
+              <geometry>
+                <box>
+                  <size>0.2 0.2 0.2</size>
+                </box>
+              </geometry>
+              <pose frame=''>0 0 0 0 0 0</pose>
+            </visual>
+            <sensor name="main_bumper" type="contact">
+              <selfCollide>true</selfCollide>
+              <alwaysOn>true</alwaysOn>
+              <updateRate>15.0</updateRate>
+              <contact>
+                <collision>book_collision</collision>
+              </contact>
+              <!--<plugin name="gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">   
+                <bumperTopicName>bumper_vals</bumperTopicName>
+                <frameName>book_target</frameName>
+              </plugin> -->
+            </sensor>
+          </link>
+          <plugin name="target_tf_broadcaster" filename="libtf_broadcaster_plugin.so">
+            <linkName>book_link</linkName>
+            <frameName>book_object_frame</frameName>
+          </plugin>
+          <plugin name="grasp" filename="libTiltGrabPlugin.so">
+            <parentLinkName>book_link</parentLinkName>
+            <childLinkName1>left_ee::link</childLinkName1>
+            <childLinkName2>right_ee::link</childLinkName2>
+            <childLinkName3>right_ee_2::link</childLinkName3>
+            <sensorName>book_contact</sensorName>
+          </plugin>
+        </model>
+
+        
+
+        <!-- Left Gripper -->
+        <include>
+            <uri>model://finger</uri>
+            <name>left_ee</name>
+            <pose>1.150000 0.661000 0.575000 0.000000 0.000000 1.57080</pose>
+            
+            
+            <plugin name="l_force_controller" filename="libvelocity_controller_plugin.so">
+              <linkName>link</linkName>
+              <topicName>set_l_ee_twist</topicName>
+              <gains>
+                <linear>
+                  <P>100.0</P>
+                  <I>0.0</I>
+                  <D>25.0</D>
+                </linear>
+                <angular>
+                  <P>100.0</P>
+                  <I>0.0</I>
+                  <D>25.0</D>
+                </angular>
+              </gains>
+            </plugin> 
+            
+            <plugin name="l_tf_broadcaster" filename="libtf_broadcaster_plugin.so">
+              <linkName>link</linkName>
+              <frameName>l_gripper_tool_frame</frameName>
+            </plugin>
+        </include>
+
+        <!-- Right Gripper -->
+        <include>
+            <uri>model://finger</uri>
+            <name>right_ee</name>
+            <pose>1.150000 0.600000 0.475000 0.000000 0.000000 1.57080</pose>
+            
+            <plugin name="r_force_controller" filename="libvelocity_controller_plugin.so">
+              <linkName>link</linkName>
+              <topicName>set_r_ee_twist</topicName>
+              <gains>
+                <linear>
+                  <P>100.0</P>
+                  <I>0.0</I>
+                  <D>25.0</D>
+                </linear>
+                <angular>
+                  <P>100.0</P>
+                  <I>0.0</I>
+                  <D>25.0</D>
+                </angular>
+              </gains>
+            </plugin>
+            
+            <plugin name="r_tf_broadcaster" filename="libtf_broadcaster_plugin.so">
+              <linkName>link</linkName>
+              <frameName>r_gripper_tool_frame</frameName>
+            </plugin>
+        </include>
+
+        <include>
+            <uri>model://finger</uri>
+            <name>right_ee_2</name>
+            <pose>1.150000 0.7000000 0.475000 0.000000 0.000000 1.57080</pose>
+            
+            <plugin name="r_2_force_controller" filename="libvelocity_controller_plugin.so">
+              <linkName>link</linkName>
+              <topicName>set_r_ee_2_twist</topicName>
+              <gains>
+                <linear>
+                  <P>100.0</P>
+                  <I>0.0</I>
+                  <D>25.0</D>
+                </linear>
+                <angular>
+                  <P>100.0</P>
+                  <I>0.0</I>
+                  <D>25.0</D>
+                </angular>
+              </gains>
+            </plugin>
+            
+            <plugin name="r_2_tf_broadcaster" filename="libtf_broadcaster_plugin.so">
+              <linkName>link</linkName>
+              <frameName>r_2_gripper_tool_frame</frameName>
+            </plugin>
+        </include>
+
+        <plugin name="feature_visualization_plugin" filename="libgiskard_visualization_plugin.so"></plugin>
+
+        <gui>
+            <camera name='user_camera'>
+                <pose>1.770789 1.775709 1.500612 0 0.375643 -2.675000</pose>
+                <view_controller>orbit</view_controller>
+            </camera>
+        </gui>
+
+    </world>
+</sdf>

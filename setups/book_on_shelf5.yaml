@@ -1,0 +1,27 @@
+# Object scans a.k.a. object knowledge base
+point-clouds:
+  tool: nothing.ply # no tool therefore no pointcloud, but still need pointcloud
+  target-object: book.ply
+
+tool-mass: 0.05
+
+# Transformation from the end effector to the tool
+# need this as it is assumed left and right ee are gripping something
+tool-grasp: 
+  frame:
+    - quaternion: [0.0, 0., 0., 1.00000000001] # x, y, z, w
+    - vector3: [0.0, 0.0, 0.0] # x, y, z
+    
+target-object-grasp:
+  frame: # the position of the corner of the book
+    - quaternion: [0.0, 0.0, 0.0, 1.0]
+    - vector3: [0.24, 0.860967, 0.681249] #[0.08415, 0, 0.3887]
+
+object-width: 0.05
+
+target-object-grasp-2:
+  frame:
+    - quaternion: [0.0, 0.0, 0.0, 1.0]
+    - vector3: [0.0, 0.0, 0.0]
+
+  

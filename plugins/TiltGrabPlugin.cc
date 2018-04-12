@@ -17,6 +17,7 @@ TiltGrabPlugin::TiltGrabPlugin(): ModelPlugin(), joint1(nullptr) {
 
 void TiltGrabPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
     ROS_INFO("Hello World!");
+    ROS_DEBUG("Hello World!");
     this->model = _parent;
     const auto world = this->model->GetWorld();
     this->physics = world->GetPhysicsEngine();
@@ -133,6 +134,7 @@ void TiltGrabPlugin::OnUpdate(const common::UpdateInfo &_info) {
     		this->CreateFirstJoint();
     		this->grabPhase = 1;
             std::cout << "made first joint \n";
+            gzdbg << "made first joint \n";
     	}
     }
 
@@ -142,6 +144,7 @@ void TiltGrabPlugin::OnUpdate(const common::UpdateInfo &_info) {
     		this->CreateSecondJoints();
     		this->grabPhase = 2;
             std::cout << "made second joints \n";
+            gzdbg << "made second joints \n";
     	}
     }
     this->left_finger_touching = false;
@@ -150,6 +153,7 @@ void TiltGrabPlugin::OnUpdate(const common::UpdateInfo &_info) {
         const gazebo::math::Pose &modelend = this->book_model->GetWorldPose();
         if (modelend.pos.z > this->goalZ){
             ROS_INFO("Experiment Success");
+            gzdbg << "Experiment Success \n";
             //ROS_INFO(modelend.pos.z);
             this->grabPhase = 3;
         }

@@ -24,7 +24,7 @@ scope:
       transform-vector: [tool-frame-2, {vector3: [0, 0, 0.025]}]         
   - target-object-point:
       vector-add:
-        - transform-vector: [target-object-frame, {vector3: [0.1, 0.00, 0.1]}]
+        - transform-vector: [target-object-frame, {vector3: [0.6, 0.0, 0.6]}]
         - {vector3: [0.0, 0.0, 0.0]} # 20 cm above the edge
 
   # expressions used in constraints 

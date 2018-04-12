@@ -107,7 +107,7 @@ public:
 
     ROS_INFO("Press any key to begin the motion");
   
-    std::getchar(); 
+    //std::getchar(); 
 
     // Start the motion
     startPhase(0);
