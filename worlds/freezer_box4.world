@@ -46,21 +46,21 @@
           <link name='book_link'>
             <pose frame='link'>0.0 0.0 0.0 0.0 0 0</pose>
             <inertial>
-              <mass>1</mass>
+              <mass>0.1</mass>
               <pose frame='link'>0.0 0.0 0.0 0 0 0</pose>
               <inertia>
-                <ixx>0.0883333</ixx><!--  1/12 * m * (h^2 + d^2)  -->
+                <ixx>0.002416667</ixx><!--  1/12 * m * (h^2 + d^2)  -->
                 <ixy>0</ixy>
                 <ixz>0</ixz>
-                <iyy>0.0883333</iyy>
+                <iyy>0.002416667</iyy>
                 <iyz>0</iyz>
-                <izz>0.0416666</izz>
+                <izz>0.004166667</izz>
               </inertia>
             </inertial>
             <collision name='book_collision'>
               <geometry>
                 <box>
-                  <size>0.5 0.5 0.9</size>
+                  <size>0.5 0.5 0.2</size>
                 </box>
               </geometry>
               <pose frame=''>0.0 0.0 0.0 0 0 0</pose>
@@ -76,7 +76,7 @@
             <visual name='book_visual'>
               <geometry>
                 <box>
-                  <size>0.5 0.5 0.9</size>
+                  <size>0.5 0.5 0.2</size>
                 </box>
               </geometry>
               <pose frame=''>0.0 0.0 0.0 0 0 0</pose>

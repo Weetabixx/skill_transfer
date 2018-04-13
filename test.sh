@@ -1,16 +1,44 @@
 	#!/bin/bash
 	
 	
-	#worlds=(grabbing_book grabbing_book grabbing_book grabbing_book grabbing_book grabbing_book grabbing_book grabbing_book grabbing_book grabbing_book) 
-	worlds=(freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2) 
+	#worlds=(grabbing_book2 grabbing_book2 grabbing_book2 grabbing_book2 grabbing_book2 grabbing_book2 grabbing_book2 grabbing_book2 grabbing_book2 grabbing_book2) 
+	worlds=(freezer_box freezer_box freezer_box freezer_box freezer_box freezer_box freezer_box freezer_box freezer_box freezer_box freezer_box 
+		freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 
+		freezer_box3 freezer_box3 freezer_box3 freezer_box3 freezer_box3 freezer_box3 freezer_box3 freezer_box3 freezer_box3 freezer_box3 freezer_box3 
+		freezer_box4 freezer_box4 freezer_box4 freezer_box4 freezer_box4 freezer_box4 freezer_box4 freezer_box4 freezer_box4 freezer_box4 freezer_box4 
+		freezer_box5 freezer_box5 freezer_box5 freezer_box5 freezer_box5 freezer_box5 freezer_box5 freezer_box5 freezer_box5 freezer_box5 freezer_box5 
+		freezer_box6 freezer_box6 freezer_box6 freezer_box6 freezer_box6 freezer_box6 freezer_box6 freezer_box6 freezer_box6 freezer_box6 freezer_box6 
+		freezer_box7 freezer_box7 freezer_box7 freezer_box7 freezer_box7 freezer_box7 freezer_box7 freezer_box7 freezer_box7 freezer_box7 freezer_box7 
+		grabbing_book grabbing_book grabbing_book grabbing_book grabbing_book grabbing_book grabbing_book grabbing_book grabbing_book grabbing_book 
+		grabbing_book2 grabbing_book2 grabbing_book2 grabbing_book2 grabbing_book2 grabbing_book2 grabbing_book2 grabbing_book2 grabbing_book2 grabbing_book2 
+		grabbing_book3 grabbing_book3 grabbing_book3 grabbing_book3 grabbing_book3 grabbing_book3 grabbing_book3 grabbing_book3 grabbing_book3 grabbing_book3 
+		grabbing_book4 grabbing_book4 grabbing_book4 grabbing_book4 grabbing_book4 grabbing_book4 grabbing_book4 grabbing_book4 grabbing_book4 grabbing_book4 
+		grabbing_book5 grabbing_book5 grabbing_book5 grabbing_book5 grabbing_book5 grabbing_book5 grabbing_book5 grabbing_book5 grabbing_book5 grabbing_book5 
+		grabbing_book6 grabbing_book6 grabbing_book6 grabbing_book6 grabbing_book6 grabbing_book6 grabbing_book6 grabbing_book6 grabbing_book6 grabbing_book6 
+		grabbing_book7 grabbing_book7 grabbing_book7 grabbing_book7 grabbing_book7 grabbing_book7 grabbing_book7 grabbing_book7 grabbing_book7 grabbing_book7 
+		grabbing_book8 grabbing_book8 grabbing_book8 grabbing_book8 grabbing_book8 grabbing_book8 grabbing_book8 grabbing_book8 grabbing_book8 grabbing_book8 ) 
 
 	
 	#experiments=(book_on_shelf book_on_shelf book_on_shelf book_on_shelf book_on_shelf book_on_shelf book_on_shelf book_on_shelf book_on_shelf book_on_shelf book_on_shelf )
-	experiments=(freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2)
+	experiments=(freezer_box freezer_box freezer_box freezer_box freezer_box freezer_box freezer_box freezer_box freezer_box freezer_box freezer_box 
+		freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 freezer_box2 
+		freezer_box3 freezer_box3 freezer_box3 freezer_box3 freezer_box3 freezer_box3 freezer_box3 freezer_box3 freezer_box3 freezer_box3 freezer_box3 
+		freezer_box4 freezer_box4 freezer_box4 freezer_box4 freezer_box4 freezer_box4 freezer_box4 freezer_box4 freezer_box4 freezer_box4 freezer_box4 
+		freezer_box5 freezer_box5 freezer_box5 freezer_box5 freezer_box5 freezer_box5 freezer_box5 freezer_box5 freezer_box5 freezer_box5 freezer_box5 
+		freezer_box6 freezer_box6 freezer_box6 freezer_box6 freezer_box6 freezer_box6 freezer_box6 freezer_box6 freezer_box6 freezer_box6 freezer_box6 
+		freezer_box7 freezer_box7 freezer_box7 freezer_box7 freezer_box7 freezer_box7 freezer_box7 freezer_box7 freezer_box7 freezer_box7 freezer_box7 
+		book_on_shelf book_on_shelf book_on_shelf book_on_shelf book_on_shelf book_on_shelf book_on_shelf book_on_shelf book_on_shelf book_on_shelf book_on_shelf 
+		book_on_shelf2 book_on_shelf2 book_on_shelf2 book_on_shelf2 book_on_shelf2 book_on_shelf2 book_on_shelf2 book_on_shelf2 book_on_shelf2 book_on_shelf2 book_on_shelf2 
+		book_on_shelf3 book_on_shelf3 book_on_shelf3 book_on_shelf3 book_on_shelf3 book_on_shelf3 book_on_shelf3 book_on_shelf3 book_on_shelf3 book_on_shelf3 book_on_shelf3 
+		book_on_shelf4 book_on_shelf4 book_on_shelf4 book_on_shelf4 book_on_shelf4 book_on_shelf4 book_on_shelf4 book_on_shelf4 book_on_shelf4 book_on_shelf4 book_on_shelf4 
+		book_on_shelf5 book_on_shelf5 book_on_shelf5 book_on_shelf5 book_on_shelf5 book_on_shelf5 book_on_shelf5 book_on_shelf5 book_on_shelf5 book_on_shelf5 book_on_shelf5 
+		book_on_shelf6 book_on_shelf6 book_on_shelf6 book_on_shelf6 book_on_shelf6 book_on_shelf6 book_on_shelf6 book_on_shelf6 book_on_shelf6 book_on_shelf6 book_on_shelf6 
+		book_on_shelf7 book_on_shelf7 book_on_shelf7 book_on_shelf7 book_on_shelf7 book_on_shelf7 book_on_shelf7 book_on_shelf7 book_on_shelf7 book_on_shelf7 book_on_shelf7 
+		book_on_shelf8 book_on_shelf8 book_on_shelf8 book_on_shelf8 book_on_shelf8 book_on_shelf8 book_on_shelf8 book_on_shelf8 book_on_shelf8 book_on_shelf8 book_on_shelf8 )
 	index=0
 
 
-	while [ $index -lt 10 ]; do
+	while [ $index -lt 150 ]; do
 
 	gnome-terminal -e "timeout 180s roslaunch skill_transfer simulation.launch world:=${worlds[$index]}" #kill node?
 	sleep 10s;

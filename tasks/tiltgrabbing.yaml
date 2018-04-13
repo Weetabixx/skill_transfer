@@ -55,7 +55,7 @@ motion-phases:
       measured-velocity-min-threshold: 0.002
       desired-velocity-min-threshold: 0.002
       contact: false
-      activation-distance: 0.15
+      activation-distance: 0.5
   - name: Lift finger
     file: tilting_position_above.yaml
     stop:
